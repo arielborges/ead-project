@@ -5,8 +5,13 @@ import com.ead.course.models.CourseModel;
 import com.ead.course.models.ModuleModel;
 import com.ead.course.service.CourseService;
 import com.ead.course.service.ModuleService;
+import com.ead.course.specification.SpecificationTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +21,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Optional;
 import java.util.UUID;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -67,8 +75,16 @@ public class ModuleController {
     }
 
     @GetMapping("/courses/{courseId}/modules")
-    public ResponseEntity<Object> getAllModules(@PathVariable(value = "courseId") UUID courseId) {
-        return ResponseEntity.status(HttpStatus.OK).body(moduleService.findAllByCourse(courseId));
+    public ResponseEntity<Page<ModuleModel>> getAllModules(@PathVariable(value = "courseId") UUID courseId,
+                                              SpecificationTemplate.ModuleSpec spec,
+                                              @PageableDefault(page = 0, size = 10,sort = "moduleId",direction = Sort.Direction.ASC)Pageable pageable){
+        Page<ModuleModel> moduleModelPage = moduleService.findAllByCourse(SpecificationTemplate.moduleCourseId(courseId).and(spec), pageable);
+        if (!moduleModelPage.isEmpty()) {
+            for (ModuleModel moduleModel : moduleModelPage.toList()){
+                moduleModel.add(linkTo(methodOn(ModuleController.class).getOneModule(courseId,moduleModel.getModuleId())).withSelfRel());
+            }
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(moduleModelPage);
     }
 
     @GetMapping("/courses/{courseId}/modules/{moduleId}")

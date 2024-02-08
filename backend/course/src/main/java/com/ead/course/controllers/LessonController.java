@@ -5,8 +5,13 @@ import com.ead.course.models.LessonModel;
 import com.ead.course.models.ModuleModel;
 import com.ead.course.service.LessonService;
 import com.ead.course.service.ModuleService;
+import com.ead.course.specification.SpecificationTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +22,9 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600 )
@@ -67,8 +75,16 @@ public class LessonController {
     }
 
     @GetMapping("/modules/{moduleId}/lessons")
-    public ResponseEntity<List<LessonModel>> getAllLessons(@PathVariable(value = "moduleId")UUID moduleId){
-        return ResponseEntity.status(HttpStatus.OK).body(lessonService.findAllByModule(moduleId));
+    public ResponseEntity<Page<LessonModel>> getAllLessons(@PathVariable(value = "moduleId")UUID moduleId,
+                                                           SpecificationTemplate.LessonSpec spec,
+                                                           @PageableDefault(page = 0,size = 10,sort = "lessonId",direction = Sort.Direction.ASC)Pageable pageable){
+        Page<LessonModel> lessonModelPage = lessonService.findAllByModule(SpecificationTemplate.LessonModuleId(moduleId).and(spec),pageable);
+        if (!lessonModelPage.isEmpty()){
+            for (LessonModel lessonModel : lessonModelPage.toList()){
+                lessonModel.add(linkTo(methodOn(LessonController.class).getOneLessons(moduleId,lessonModel.getLessonId())).withSelfRel());
+            }
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(lessonModelPage);
     }
 
     @GetMapping("/modules/{moduleId}/lessons/{lessonId}")
