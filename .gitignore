@@ -1,0 +1,73 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+### STS ###
+### GATEWAY ###
+/backend/gateway/.idea
+/backend/gateway/.apt_generated
+/backend/gateway/.classpath
+/backend/gateway/.factorypath
+/backend/gateway/.project
+/backend/gateway/.settings
+/backend/gateway/.springBeans
+/backend/gateway/.sts4-cache
+/backend/gateway/.gitignore
+/backend/gateway/target
+
+### EUREKA-SERVER ###
+/backend/eureka-server/.idea
+/backend/eureka-server/.apt_generated
+/backend/eureka-server/.classpath
+/backend/eureka-server/.factorypath
+/backend/eureka-server/.project
+/backend/eureka-server/.settings
+/backend/eureka-server/.springBeans
+/backend/eureka-server/.sts4-cache
+/backend/eureka-server/.gitignore
+/backend/eureka-server/target
+
+### authuser ###
+/backend/authuser/.idea
+/backend/authuser/.apt_generated
+/backend/authuser/.classpath
+/backend/authuser/.factorypath
+/backend/authuser/.project
+/backend/authuser/.settings
+/backend/authuser/.springBeans
+/backend/authuser/.sts4-cache
+/backend/authuser/.gitignore
+/backend/authuser/target
+
+### courses ###
+/backend/courses/.idea
+/backend/courses/.apt_generated
+/backend/courses/.classpath
+/backend/courses/.factorypath
+/backend/courses/.project
+/backend/courses/.settings
+/backend/courses/.springBeans
+/backend/courses/.sts4-cache
+/backend/courses/.gitignore
+/backend/courses/target
+
+### notification ###
+/backend/notification/.idea
+/backend/notification/.apt_generated
+/backend/notification/.classpath
+/backend/notification/.factorypath
+/backend/notification/.project
+/backend/notification/.settings
+/backend/notification/.springBeans
+/backend/notification/.sts4-cache
+/backend/notification/.gitignore
+/backend/notification/target
+
+### STS FIM ###
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
