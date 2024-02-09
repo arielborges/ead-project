@@ -17,6 +17,7 @@
 
 ### authuser ###
 /backend/authuser/.idea
+/backend/authuser/authuser.iml
 /backend/authuser/.gitignore
 /backend/authuser/HELP.md
 /backend/authuser/target
