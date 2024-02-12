@@ -1,43 +1,12 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 ### STS ###
-### GATEWAY ###
-/backend/gateway/.idea
-/backend/gateway/HELP.md
-/backend/gateway/.gitignore
-/backend/gateway/target
-/backend/gateway/src/test
 
-### EUREKA-SERVER ###
-/backend/service-registry/.idea
-/backend/service-registry/HELP.md
-/backend/service-registry/.gitignore
-/backend/service-registry/target
-/backend/service-registry/src/test
-
-### authuser ###
-/backend/authuser/.idea
-/backend/authuser/authuser.iml
-/backend/authuser/.gitignore
-/backend/authuser/HELP.md
-/backend/authuser/target
-/backend/authuser/src/test
-
-### courses ###
-/backend/courses/.idea
-/backend/courses/HELP.md
-/backend/courses/.gitignore
-/backend/courses/target
-/backend/courses/src/test
-
-### notification ###
-/backend/notification/.idea
-/backend/notification/HELP.md
-/backend/notification/.gitignore
-/backend/notification/target
-/backend/notification/src/test
+/backend/**/.idea
+/backend/**/HELP.md
+/backend/**/.gitignore
+/backend/**/target/
+/backend/**/src/test/
+.idea
 
 ### STS FIM ###
-
-# IDEs and editors
-.idea/
