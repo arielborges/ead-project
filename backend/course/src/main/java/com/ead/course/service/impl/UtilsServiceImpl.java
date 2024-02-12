@@ -24,6 +24,11 @@ public class UtilsServiceImpl implements UtilsService {
     }
 
     @Override
+    public String urlDeleteCourseInAuthuser(UUID courseId) {
+        return REQUEST_URI_AUTHUSER + "/users/courses/" + courseId;
+    }
+
+    @Override
     public String urlPostSubscription(UUID userId) {
         return REQUEST_URI_AUTHUSER + "/users/" + userId + "/courses/subscription";
     }
