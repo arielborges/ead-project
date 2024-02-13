@@ -1,14 +1,12 @@
 package com.ead.course.service.impl;
 
-import com.ead.course.clients.AuthUserClient;
 import com.ead.course.models.CourseModel;
-import com.ead.course.models.CourseUserModel;
 import com.ead.course.models.LessonModel;
 import com.ead.course.models.ModuleModel;
 import com.ead.course.repositories.CourseRepository;
-import com.ead.course.repositories.CourseUserRepositoy;
 import com.ead.course.repositories.LessonRepository;
 import com.ead.course.repositories.ModuleRepository;
+import com.ead.course.repositories.UserRepositoy;
 import com.ead.course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,15 +31,11 @@ public class CourseServiceImpl implements CourseService {
     ModuleRepository moduleRepository;
 
     @Autowired
-    CourseUserRepositoy courseUserRepositoy;
-
-    @Autowired
-    AuthUserClient authUserClient;
+    UserRepositoy userRepositoy;
 
     @Transactional
     @Override
     public void delete(CourseModel courseModel) {
-        boolean deletedCourseUserInAuthuser = false;
         List<ModuleModel> moduleModelList = moduleRepository.findAllModulesIntoCourse(courseModel.getCourseId());
         if (!moduleModelList.isEmpty()){
             for (ModuleModel moduleModel : moduleModelList){
@@ -52,15 +46,7 @@ public class CourseServiceImpl implements CourseService {
             }
             moduleRepository.deleteAll(moduleModelList);
         }
-        List<CourseUserModel> courseUserModelList = courseUserRepositoy.findAllCourseUserIntoCourse(courseModel.getCourseId());
-        if (!courseUserModelList.isEmpty()){
-            courseUserRepositoy.deleteAll(courseUserModelList);
-            deletedCourseUserInAuthuser = true;
-        }
         courseRepository.delete(courseModel);
-        if (deletedCourseUserInAuthuser){
-            authUserClient.deleteCourseInAuthuser(courseModel.getCourseId());
-        }
     }
 
     @Override
@@ -77,5 +63,4 @@ public class CourseServiceImpl implements CourseService {
     public Page<CourseModel> findAll(Specification<CourseModel> spec, Pageable pageable) {
         return courseRepository.findAll(spec, pageable);
     }
-
 }
