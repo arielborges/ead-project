@@ -13,8 +13,13 @@ public class UtilsServiceImpl implements UtilsService {
     @Value("${ead.api.url.course}")
     String REQUEST_URI;
 
+    @Override
+    public String urlDeleteUserInCourse(UUID userId) {
+        return REQUEST_URI + "courses/users/" + userId;
+    }
+
     public String urlAllCoursesByUser(UUID userId, Pageable pageable) {
-        return REQUEST_URI + "/courses?userId=" + userId + "&page=" + pageable.getPageNumber() + "&size=" + pageable.getPageSize() +
+        return REQUEST_URI + "courses?userId=" + userId + "&page=" + pageable.getPageNumber() + "&size=" + pageable.getPageSize() +
                 "&sort=" + pageable.getSort().toString().replaceAll(": ", ",");
     }
 }
