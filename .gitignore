@@ -2,11 +2,12 @@
 
 ### STS ###
 
-/backend/**/.idea
+**.xml
 /backend/**/HELP.md
 /backend/**/.gitignore
+**.idea/
+/backend/**/.idea
 /backend/**/target/
 /backend/**/src/test/
-.idea
 
 ### STS FIM ###

@@ -63,8 +63,8 @@ public class CourseUserController {
             if (responseUser.getBody().getUserStatus().equals(UserStatus.BLOCKED)){
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("User is blocked!");
             }
-        } catch (HttpStatusCodeException e){
-            if (e.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
+        } catch (Exception e){
+            if (e.getMessage().equals(HttpStatus.NOT_FOUND)) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found!");
             }
         }
