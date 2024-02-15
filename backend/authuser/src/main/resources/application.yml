@@ -19,6 +19,11 @@ spring:
     properties:
       hibernate:
         show_sql: true
+  output:
+    ansi:
+      enabled: always
+  rabbitmq:
+    addresses: amqps://vkuvmput:bKyTsD0IXQaMa_QpbkM9GkLafdk2LVhH@crow.rmq.cloudamqp.com/vkuvmput
 
 logging:
   level:
@@ -29,6 +34,9 @@ ead:
   api:
     url:
       course: 'http://ead-course-service/ead-course/'
+  broker:
+    exchange:
+      userEvent: ead.userevent
 
 eureka:
   client:
