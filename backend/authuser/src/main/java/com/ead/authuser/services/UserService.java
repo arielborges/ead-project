@@ -12,11 +12,13 @@ public interface UserService {
 
     Optional<UserModel> findById(UUID userId);
 
-    void delete(UserModel userModel);
-
-    void save(UserModel userModel);
-
     UserModel saveUser(UserModel userModel);
+
+    UserModel updateUser(UserModel userModel);
+
+    void deleteUser(UserModel userModel);
+
+    UserModel updatePassword(UserModel userModel);
 
     boolean existByUserName(String username);
 

@@ -45,7 +45,7 @@ public class CourseUserController {
         Page<UserModel> userModelPage = userService.findAll(SpecificationTemplate.userCourseId(courseId).and(spec), pageable);
         if (!userModelPage.isEmpty()){
             for (UserModel userModel : userModelPage.toList()){
-                userModel.add(linkTo(methodOn(CourseController.class).getOneCourse(userModel.getId())).withSelfRel());
+                userModel.add(linkTo(methodOn(CourseController.class).getOneCourse(userModel.getUserId())).withSelfRel());
             }
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found users into course!");
